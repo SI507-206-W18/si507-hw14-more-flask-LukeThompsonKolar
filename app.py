@@ -13,6 +13,12 @@ def addentry():
     ## add a guestbook entry
     return render_template("addentry.html")
 
+@app.route("/delete")
+def delete():
+    _id = request.form["id"]
+    model.delete_entry(_id)
+    return(redirect("/"))
+
 @app.route("/postentry", methods=["POST"])
 def postentry():
     name = request.form["name"]
@@ -21,5 +27,5 @@ def postentry():
     return redirect("/")
 
 if __name__=="__main__":
-    model.init()
+    model.init(app)
     app.run(debug=True)
